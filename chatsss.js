@@ -96,7 +96,7 @@ function get_chats()
     set_z_index(spinner)
     spinner.style.display="flex"
     setTimeout(()=>{
-        REQUEST(`../Globals/chat?categoria=get_chats`,(res)=>{
+        REQUEST(`../Globals/conversas.php?categoria=get_chats`,(res)=>{
             let result = JSON.parse(res)
             $('#c-m-op-chats').html(result[0])
             result[1].forEach((el)=>{
@@ -127,7 +127,7 @@ function remove_chat()
 {
     set_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=remove_chat&type=${currentCHATtype}&ref=${currentChat}&user=self`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=remove_chat&type=${currentCHATtype}&ref=${currentChat}&user=self`,(res)=>{
         
         if(res)
         {
@@ -150,7 +150,7 @@ function remove_chtroom()
 {
     sset_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=remove_chtroom&ref=${currentChat}`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=remove_chtroom&ref=${currentChat}`,(res)=>{
         
         if(res)
         {
@@ -242,7 +242,7 @@ function get_chatroom_info()
 {
     set_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=get_chrm_info&ref=${currentChat}`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=get_chrm_info&ref=${currentChat}`,(res)=>{
         $('#current-g-info').html(res)
         spinner.style.display="none"
         $('#container-info-grupo').show(200)
@@ -253,7 +253,7 @@ function get_more_users()
 {
     set_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=get_users_t_add&ref=${currentChat}`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=get_users_t_add&ref=${currentChat}`,(res)=>{
         $('#list-avl-users').html(res)
         spinner.style.display="none"
         $('#c-add-users-t-g').show(200)
@@ -280,7 +280,7 @@ function send_msg(type,pkg=null)
     msg_pkg.push(get_full_date())
     if(currentChat !== null && currentCHATtype !== null)
     {
-        REQUEST(`../Globals/chat.php?categoria=send_msg&type=${currentCHATtype}&msg=${JSON.stringify(msg_pkg)}&ref=${currentChat}`,(result)=>{
+        REQUEST(`../Globals/conversas.php?categoria=send_msg&type=${currentCHATtype}&msg=${JSON.stringify(msg_pkg)}&ref=${currentChat}`,(result)=>{
             if(!result)
             {
                 $('#infog').html(`<p alert alert-danger>${result}</p>`)
@@ -312,7 +312,7 @@ function refresh_msg_box()
             msg_length = result[1]
         })*/
         let request = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP")
-        request.open("POST",`../Globals/chat.php?categoria=get_msgs&ref=${currentChat}&type=${currentCHATtype}&vfy=${msg_length}`)
+        request.open("POST",`../Globals/conversas.php?categoria=get_msgs&ref=${currentChat}&type=${currentCHATtype}&vfy=${msg_length}`)
         request.send()
         request.onreadystatechange = ()=>{
             if(request.readyState == 4 && request.status == 200)
@@ -351,14 +351,14 @@ function searchUsers(busca,tipo)
 {
     let pos = tipo=="cr"?1:0
     let ref = (isNaN(busca))?"nome_completo":"id_user"
-    REQUEST(`../Globals/chat.php?categoria=busca_users&ref=${ref}&busca=${busca}&tipo=${tipo}`,(result)=>{
+    REQUEST(`../Globals/conversas.php?categoria=busca_users&ref=${ref}&busca=${busca}&tipo=${tipo}`,(result)=>{
         $('.result-b-contatos').html(result)
     })
 }
 
 function addChat(user)
 {
-    REQUEST(`../Globals/chat.php?categoria=add_chat&user=${user}`,(result)=>{
+    REQUEST(`../Globals/conversas.php?categoria=add_chat&user=${user}`,(result)=>{
         $('#infog').html(`<strong class='alert alert-success'>Conversa criada com sucesso!</strong>`)
         if(!result)
         {
@@ -394,7 +394,7 @@ function addCRusers(id_chatroom)
      * 
      */
     //alert(id_chatroom)
-    REQUEST(`../Globals/chat.php?categoria=add_ch_users&users=${JSON.stringify(chat_r_users)}&chat=${id_chatroom}`,(result)=>{
+    REQUEST(`../Globals/conversas.php?categoria=add_ch_users&users=${JSON.stringify(chat_r_users)}&chat=${id_chatroom}`,(result)=>{
         $('#infog').html(`<strong class='alert alert-success'>Grupo criado com sucesso!</strong>`)
         if(!result)
         {
@@ -421,7 +421,7 @@ function add_chtroom_user(user)
 {
     set_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=add_ch_users&users=${JSON.stringify([user])}&chat=${currentChat}`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=add_ch_users&users=${JSON.stringify([user])}&chat=${currentChat}`,(res)=>{
         if(!res)
         {
             $('#infog').html("<p class='alert alert-danger'>Ocorreu um erro ao adicionar o participante, tente mais tarde!</p>")
@@ -439,7 +439,7 @@ function remove_chtroom_user(user,dir)
 {
     set_z_index(spinner)
     spinner.style.display="flex"
-    REQUEST(`../Globals/chat.php?categoria=remove_chat&type=${currentCHATtype}&ref=${currentChat}&user=${user}`,(res)=>{
+    REQUEST(`../Globals/conversas.php?categoria=remove_chat&type=${currentCHATtype}&ref=${currentChat}&user=${user}`,(res)=>{
        let msg = "";
         if(dir){
         msg = "Grupo removido com sucesso!"

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mídias em HTML5</title>
+</head>
+<body>
+<h1>Imagem dinâmica</h1>
+<p>Tente abrir esse site em vários dispositivos diferentes ou simplesmente
+    aumente e diminue o tamanho do seu navegador.</p>
+    <picture>
+     <source media="(max-width:700px)" srcset="imagens/img-p.png" type="image/png">
+    <source media="(max-width:1000px)" srcset="imagens/img-m.png" type="image/png">
+        <img src="./imagens/img-g.png" alt="Imagem flexível">
+    </picture>
+<h1>Reproduzindo Aúdio</h1>
+<audio src="./audio/videoplayback.m4a" controls autoplay></audio><!--é a primeira maneira para colocar auúdio-->
+<br>
+<audio preload="metadata" autoplay controls loop>
+<source src="./audio/voce_ama_alguem_tente_nao_chorar_.mp3" type="audio/mpeg">
+<p>Infelizmente o seu navegador não consegue reproduzir aúdio.
+Clique <a href="./audio/voce_ama_alguem_tente_nao_chorar_.mp3">Aqui</a>para baixar-lo.</p>
+</audio>
+</body>
+</html>
